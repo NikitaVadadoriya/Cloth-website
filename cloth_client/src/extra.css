@@ -1,0 +1,10 @@
+.main-link{
+ text-decoration:none;
+ color:teal;
+ font-size: 20px;
+ font-weight: bold;
+}
+
+link .main-link :hover{
+    color: orangered;
+}
