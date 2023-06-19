@@ -25,6 +25,7 @@ const addSubcategory =async(req,res)=>{
    
 }
 
+//GET ALL  SUBCATEGORY NAME IN ARRAY
 const getAllSubcategory = async (req, res) => {
   try {
     const sub = await Subcategory.findAll({
@@ -46,6 +47,7 @@ const getAllSubcategory = async (req, res) => {
 }
 }
 
+//GET ALL DATA IN SUBCATEGORY 
 const getAll =async(req,res)=>{
   const subcategory=await Subcategory.findAll({});
   if(subcategory){
@@ -55,7 +57,7 @@ const getAll =async(req,res)=>{
   }
 }
 
-
+//GET SUBCATEGORY BY ID
 const getSubcategoryById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -65,16 +67,8 @@ const getSubcategoryById = async (req, res) => {
         {
           model: Subcategory,
           as: "subcategory",
-          // attributes: ['id','product_name', 'description', 'totle_price']
         },
-        // {
-        //   model: Category,
-        //   as: "category",
-        //   attributes: ['category_name', 'image']
-        // },
       ]
-
-
     })
     if (result) {
       res.status(200).json({
@@ -87,6 +81,7 @@ const getSubcategoryById = async (req, res) => {
   }
 }
 
+//GET PRODUCT WISE GET SUBCATEGORY
 async function getProductBySubcategory(req, res) {
   const { subcategory_name } = req.params;
   try {

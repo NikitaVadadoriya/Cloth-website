@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../style.css'
 import { Link } from 'react-router-dom'
-import getAllCount from './Navbar'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Button } from '@mui/material'
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Slider from '@mui/material/Slider';
-import { add } from '../store/cartSlice'
 import { useDispatch } from 'react-redux'
 
 const UserProduct = () => {
@@ -46,10 +44,9 @@ const UserProduct = () => {
         }
       }).then((res) => {
         setUser(res.data.data.user)
-        // console.log(res.data.data.user)
       })
   }
- 
+
   //GET ALL VARIANT COLOR AND SIZE
   useEffect(() => {
     const fetchVariantFields = async () => {
@@ -58,7 +55,6 @@ const UserProduct = () => {
           .then((res) => {
             setColors(res.data.colors);
             setSizes(res.data.sizes);
-            // console.log(res.data.sizes)
           })
       } catch (error) {
         console.error(error);
@@ -81,7 +77,6 @@ const UserProduct = () => {
     const data = axios.get('http://localhost:4000/api/subcategory/getallsubcategory')
       .then((res) => {
         setSubcategory(res.data.subcategory_name);
-        //  console.log("sub", res.data.subcategory_name)
       })
   }
   //Store cart data in localstorage
@@ -93,24 +88,21 @@ const UserProduct = () => {
   }, []);
 
   useEffect(() => {
-    // Save cart items to local storage whenever cartItems state changes
     localStorage.setItem('cartData', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = async(id) => {
+  const addToCart = async (id) => {
     const info = {
       quantity: 1,
-      product_id:id,
-      user_id:user.id,
-      totle:0
+      product_id: id,
+      user_id: user.id,
+      totle: 0
     }
-    const data =await axios.post('http://localhost:4000/api/cart/addcart',info)
-    .then((res)=>{
-    //  console.log(res.data.data)
-     toast.success("Product Added 🛒")
-    })
+    const data = await axios.post('http://localhost:4000/api/cart/addcart', info)
+      .then((res) => {
+        toast.success("Product Added 🛒")
+      })
   };
-
 
   // FILTER CODE
 
@@ -151,7 +143,6 @@ const UserProduct = () => {
   };
 
   //SEARCH PRODUCTS
-
   const handleFilterSubmit = async () => {
     try {
       const data = await axios.get('http://localhost:4000/api/variant/categories', {
@@ -199,23 +190,16 @@ const UserProduct = () => {
       })
         .then((res) => {
           setProducts(res.data.data);
-
         })
     } catch (error) {
       console.error('Error filtering products:', error);
     }
   };
 
-
-
   return (
     <>
       <div id="sidebar" style={{ marginTop: "-40px" }}>
-        <h1 style={{ marginLeft: "250px", marginTop: '-50px' }}>Products</h1>
         <Button onClick={getAllProduct} variant='contained' color='info'>All Products</Button>
-        <input type='search' style={{ marginTop: "20px", height: "30px" }}
-          onChange={(e) => handleFilter(e)}
-          placeholder='Search Here...' />
 
         <h3>SUB CATEGORIES</h3>
         {
@@ -246,7 +230,7 @@ const UserProduct = () => {
                     type="checkbox"
                     value={color}
                     checked={selectedColors.includes(color)}
-                    onChange={handleColorChange}  />
+                    onChange={handleColorChange} />
                   {color}
                 </label>
               </div>
@@ -281,10 +265,15 @@ const UserProduct = () => {
           aria-labelledby="price-range-slider"
         />
       </div>
-      <section className='main-card--product-cointainer' style={{ marginTop: "-700px", marginLeft: "270px", gridTemplateColumns: "repeat(3, minmax(200px, 500px))" ,height:"1200px"}}>
+      <div>
+        <input type='search' style={{ float: "right", marginTop: "-750px", marginRight: '70px', height: "30px" }}
+          onChange={(e) => handleFilter(e)}
+          placeholder='Search Here...' /><br />
+        <button style={{ float: "right", marginTop: "-770px", marginRight: '20px', height: "30px", width: "50px", backgroundColor: "teal", color: "white" }}>search</button>
+      </div><br />
+      <section className='main-card--product-cointainer' style={{ marginTop: "-700px", marginLeft: "270px", gridTemplateColumns: "repeat(3, minmax(200px, 500px))", height: "1200px" }}>
         {
           products.map((curEle) => {
-
             return (
               <>
                 <div className='card-container' key={curEle.id}>
@@ -298,7 +287,7 @@ const UserProduct = () => {
                         {curEle.description}
                       </span><br />
                       <button className='card-tag subtle' onClick={(e) => addToCart(curEle.id, 1)}><AddShoppingCartIcon />Add To cart</button>
-                <ToastContainer />
+                      <ToastContainer />
                       <span className='price'>
                         ₹{curEle.totle_price}
                       </span>

@@ -117,14 +117,13 @@ const UserSingleProduct = () => {
                     <div className="product-configuration">
                         {/* <!-- Product Color --> */}
                         <div className="product-color">
-                            <span>Color</span>
+                        <span>Color</span><br />
                             {variantFields.colors.map((color, index) => (
-                                <div className="color-choose">
-                                    <div class="row" >
-                                        <input type="radio" name="color" value={color} />
-                                        <label for={color}><span style={{ background: color, flexWrap: "flex", position: "relative" }}></span></label>
-                                    </div>
-                                </div>
+
+                                <>
+                                    &nbsp;   &nbsp; <h8 style={{ backgroundColor: color, color: color, fontSize: "30px", borderRadius: "50%", border: '1px solid black' }}>------</h8>
+
+                                </>
                             ))}
                         </div>
                         <div className="cable-config">
@@ -151,8 +150,8 @@ const UserSingleProduct = () => {
             <div className='images'>
                 {Array.isArray(media) ?
                     media.map((image, index) => (
-                        <img key={index} src={`http://localhost:4000/` + image} alt={`Image ${index}`} width="300px" height="300px" style={{ padding: "50px", }} />
-                    )) : null
+                        <img key={index} src={`http://localhost:4000/` + image} alt={`Image ${index}`} width="300px" height="300px" style={{ padding: "40px", }} />
+                        )) : null
                 }
             </div>
             <br />

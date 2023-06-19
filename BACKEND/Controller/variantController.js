@@ -51,9 +51,6 @@ async function getProductsByColor(req, res) {
                 as:"subcategory"
             }],
         });
-        //console.log(variants)
-
-        // const products = variants.map((variant) => variant.Product);
         if (variants) {
             res.status(200).json({
                 data: variants

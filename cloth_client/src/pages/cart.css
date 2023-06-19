@@ -36,10 +36,9 @@
 .products {
 	border: 1px solid #eee;
 	margin: 20px 0;
-	width: 100%;
+	width: 90%;
 	height: 195px;
 	position: relative;
-
 	-webkit-transition: margin .2s linear, opacity .2s linear;
 	-moz-transition: margin .2s linear, opacity .2s linear;
 	-ms-transition: margin .2s linear, opacity .2s linear;

@@ -17,7 +17,7 @@ z-index: 3;
   
 `;
 const Image = styled.img`
-  width: 410px;
+  width: 380px;
   height: 500px;
   object-fit: cover;
   justify-content: space-between;

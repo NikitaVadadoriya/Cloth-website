@@ -27,6 +27,10 @@ const Home = () => {
       <br/> <br/>                                           
       <br/> <br/>
       <br/> <br/>
+      <h1 style={{ textAlign: "center", marginTop:'-100px',fontFamily:"italic" }}>All newest Product</h1>
+      <hr style={{ width: "310px", marginLeft: "370px", height: "2px", backgroundColor: "black" }} />
+      <br /> <br />
+      <br /> <br />
       <UserProduct/>
       <Newsletter/>
       <Footer/>

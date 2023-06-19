@@ -1,9 +1,11 @@
 const Cart = require('../Modals/cart');
 const Products = require('../Modals/productModal');
 const Subcategory = require('../Modals/subCategoriesModal');
+const Users = require('../Modals/userModal');
 
+
+//ADD CART DATA IN LOCALSTORAGE LOGIN TIME
 const addToCart = async (req, res) => {
-
   const cartData = JSON.parse(req.body.data);
   const user_id = req.body.user_id;
   if (cartData && cartData.length > 0) {
@@ -20,6 +22,8 @@ const addToCart = async (req, res) => {
   res.send('Data saved successfully');
 }
 
+
+//ADD TO CART IN USER SIDE 
 const addCart = async (req, res) => {
   try {
     const info = {
@@ -40,6 +44,7 @@ const addCart = async (req, res) => {
   }
 }
 
+//UPDATE CART DATA BY ID
 const updatecartdata = async (req, res) => {
   const { id } = req.body;
   try {
@@ -56,57 +61,83 @@ const updatecartdata = async (req, res) => {
   }
 }
 
+//GET ALL CART DATA 
 const getAllcartProduct = async (req, res) => {
   try {
-    let size = parseInt(req.params.size) || 10,
-      pageNo = parseInt(req.params.pageNo) || 1,
-      sortBy = req.params.sortBy || "createdAt",
-      sort = req.query.sort || "desc",
-      where = {};
-
-    if (sort != "desc") {
-      sort = "asc";
-    }
-
-    let condition = {
-      where: where,
-      offset: (pageNo - 1) * size,
-      limit: size,
-      order: [[sortBy, sort]],
-      include: [
-        {
-          model: Products,
-          as: "product",
-        },
-      ],
-    };
-    const users = await Cart.findAndCountAll(condition);
-    if (users.length === 0) {
-      return res.status(200).json({
-        status: 200,
-        data: {
-          count: 0,
-          totalPage: 0 + 1,
-          currentPage: pageNo,
-          users: [],
-        },
+    const user_id = req.user.id;
+   // console.log(user_id) // Assuming you have middleware that extracts the authenticated user ID and sets it on the request object
+    const user = await Users.findByPk(user_id,
+      {
+        include: [
+          {
+            model: Cart,
+            as: "cart"
+          }
+        ]
       });
-    } else {
-      return res.status(200).json({
-        status: 200,
-        data: {
-          count: users.count,
-          totalPage: Math.ceil(users.count / size),
-          currentPage: pageNo,
-          users: users.rows,
-        },
-      });
-    }
+     // console.log(user)
+      
+    const cartItemCount = await Cart.findAll({where:{user_id:user_id}});
+
+    res.json({ count: cartItemCount });
   } catch (error) {
-    console.log(error)
+    console.error('Error fetching cart data', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
+// const getAllcartProduct = async (req, res) => {
+//   try {
+//     let size = parseInt(req.params.size) || 10,
+//       pageNo = parseInt(req.params.pageNo) || 1,
+//       sortBy = req.params.sortBy || "createdAt",
+//       sort = req.query.sort || "desc",
+//       where = {};
+
+//     if (sort != "desc") {
+//       sort = "asc";
+//     }
+
+//     let condition = {
+//       where: where,
+//       offset: (pageNo - 1) * size,
+//       limit: size,
+//       order: [[sortBy, sort]],
+//       include: [
+//         {
+//           model: Products,
+//           as: "product",
+//         },
+//       ],
+//     };
+//     const users = await Cart.findAndCountAll(condition);
+//     if (users.length === 0) {
+//       return res.status(200).json({
+//         status: 200,
+//         data: {
+//           count: 0,
+//           totalPage: 0 + 1,
+//           currentPage: pageNo,
+//           users: [],
+//         },
+//       });
+//     } else {
+//       return res.status(200).json({
+//         status: 200,
+//         data: {
+//           count: users.count,
+//           totalPage: Math.ceil(users.count / size),
+//           currentPage: pageNo,
+//           users: users.rows,
+//         },
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+//GET ALL cart data by id with product 
 const getAllcartdataById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -132,6 +163,7 @@ const getAllcartdataById = async (req, res) => {
   }
 }
 
+//QUANTITY INCREMENY IN CART
 const Increment = async (req, res) => {
   const { id } = req.params;
   try {
@@ -149,6 +181,7 @@ const Increment = async (req, res) => {
   }
 };
 
+//QUANTITY DECREMENT IN CART
 const Decrement = async (req, res) => {
   const { id } = req.params;
 
@@ -168,8 +201,10 @@ const Decrement = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+//DELETE CART DATA WISE USER ID
 async function deletedUser(req, res) {
-  const {id} =  req.params
+  const { id } = req.params
   try {
     let userExist = await Cart.findOne({
       where: { user_id: id },
@@ -193,6 +228,7 @@ async function deletedUser(req, res) {
   }
 }
 
+// DELETE CART DATA BY ID
 const deletecartData = async (req, res) => {
   const id = req.query.id ? req.query.id : req.params.id;
   try {
@@ -216,8 +252,6 @@ const deletecartData = async (req, res) => {
     });
   }
 }
-
-
 
 module.exports =
 {

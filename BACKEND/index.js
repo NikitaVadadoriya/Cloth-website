@@ -25,7 +25,6 @@ app.use('/api/category',categoryRoute);
 const subcategoryRoute = require('./Routes/subcategoryRoute')
 app.use('/api/subcategory',subcategoryRoute);
 
-
 //MEDIA ROUTES
 
 const mediaRouter = require('./Routes/mediaRoute')
@@ -63,7 +62,6 @@ app.use('/api/add',addressRouter);
 
 const orderRoute = require('./Routes/orderRouter')
 app.use('/api/order',orderRoute);
-
 
 app.listen(process.env.PORT,()=>{
     console.log(`App is running port 4000`);

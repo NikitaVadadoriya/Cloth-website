@@ -7,7 +7,7 @@ const Subcategory = require('../Modals/subCategoriesModal');
 const Variant = require('../Modals/variant');
 
 
-// USER REGISTRATION 🤞🤞
+// ADD PRODUCTS🤞🤞
 
 const addProduct = async (req, res) => {
   try {
@@ -44,6 +44,7 @@ const addProduct = async (req, res) => {
   }
 }
 
+//GET ALL PRODUCTS
 const getAllProduct = async (req, res) => {
   try {
     let product = await Products.findAll({});
@@ -53,6 +54,7 @@ const getAllProduct = async (req, res) => {
   }
 }
 
+// GET PRODUCT WITH SUBCATEGORY DATA
 const getProductCategoryandSubcategory = async (req, res) => {
   try {
     let product = await Products.findAll({
@@ -72,7 +74,7 @@ const getProductCategoryandSubcategory = async (req, res) => {
   }
 }
 
-
+//GET PRODUCT WISE CATEGORY BY WOMEN
 const getProductByWomen = async (req, res) => {
   try {
     let product = await Products.findAll({
@@ -100,6 +102,7 @@ const getProductByWomen = async (req, res) => {
   }
 }
 
+//GET PRODUCT WISE CATEGORY BY MEN
 const getProductByMen = async (req, res) => {
   try {
     let product = await Products.findAll({
@@ -125,6 +128,7 @@ const getProductByMen = async (req, res) => {
   }
 }
 
+//GET PRODUCT WISE CATEGORY BY CHILD
 const getProductByChild = async (req, res) => {
   try {
     let product = await Products.findAll({
@@ -151,6 +155,7 @@ const getProductByChild = async (req, res) => {
   }
 }
 
+//GET PRODUCT BY ID
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -168,6 +173,7 @@ const getProductById = async (req, res) => {
   }
 }
 
+//UPDATE PRODUCT BY ID
 const updateProduct = async (req, res) => {
   const query = req.body;
   const id = req.query.id ? req.query.id : req.params.id;
@@ -194,6 +200,7 @@ const updateProduct = async (req, res) => {
   }
 }
 
+//DELETE PRODUCT BY ID
 const deleteProduct = async (req, res) => {
   const id = req.query.id ? req.query.id : req.params.id;
   try {
@@ -218,7 +225,7 @@ const deleteProduct = async (req, res) => {
   }
 }
 
-
+//GET VARIANT WISE PRODUCT
 const getVariantById = async (req, res) => {
   try {
     const subcategory_id = req.params.id;

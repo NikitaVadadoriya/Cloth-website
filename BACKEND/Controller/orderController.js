@@ -2,6 +2,7 @@ const Order = require('../Modals/order');
 const Address = require('../Modals/userAddressModal');
 const Users = require('../Modals/userModal');
 
+//ADD ORDER DATA 
 const addOrder = async (req, res) => {
     try {
         const info = {
@@ -23,7 +24,7 @@ const addOrder = async (req, res) => {
     }
 }
 
-
+//FET ALL ORDER DATA BY ID 
 const getAllOrder = async (req, res) => {
     try {
         const id = req.params.id;
@@ -52,6 +53,7 @@ const getAllOrder = async (req, res) => {
     }
 }
 
+//GET ALL DATA IN ORDER
 const allOrder = async(req,res)=>{
     const order = await Order.findAll({
         include:[

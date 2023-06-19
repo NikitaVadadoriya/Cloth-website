@@ -42,12 +42,10 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
-
-
 const Navbar = () => {
+
   const cart = useSelector((state) => state.cart);
   const [count, setCount] = useState(0);
-
   useEffect(() => {
     getAllCount()
   }, [])
@@ -59,7 +57,6 @@ const Navbar = () => {
     const count = parsedData ? parsedData.length : 0;
     setCount(count)
   }
-
 
   return (
     <Container>
@@ -75,7 +72,7 @@ const Navbar = () => {
           <Link >
             <MenuItem>
               <Link to='/cart'>
-                <Badge color="primary" badgeContent={cart.length}  >
+                <Badge color="primary" badgeContent={cart.length} >
                   <ShoppingCartOutlined fontSize="large" color="primary" />
                 </Badge>
               </Link>

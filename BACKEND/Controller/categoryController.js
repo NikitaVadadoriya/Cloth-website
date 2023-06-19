@@ -2,6 +2,7 @@ const Category =require('../Modals/categoryModal');
 const Products = require('../Modals/productModal');
 const { Joi }=require('express-validation')
 
+//ADD CATEGORY
 const addCategory =async(req,res)=>{
     try {
         const validationSchema = Joi.object().keys({
@@ -35,16 +36,10 @@ const addCategory =async(req,res)=>{
     }
 }
 
+//GET ALL CATEGORY
 const getAllCategory = async (req, res) => {
     try {
-        let category = await Category.findAll({
-           
-            // include:[{
-            //     model:Products,
-            //     as:"productcategory", 
-            //     attributes:['product_name','description']
-            // }]
-        });
+        let category = await Category.findAll({});
         res.status(200).send(category);
     } catch (error) {
         console.log(error)

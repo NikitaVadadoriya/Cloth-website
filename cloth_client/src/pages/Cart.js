@@ -4,9 +4,10 @@ import Announcement from '../components/Announcement'
 import Navbar from '../components/Navbar'
 import ClearIcon from '@mui/icons-material/Clear';
 import './cart.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const CategoryItem = ({ item }) => {
     const [category, setCategory] = useState([]);
@@ -80,6 +81,18 @@ const CategoryItem = ({ item }) => {
         navigate('/login');
     };
     const totalPrice = calculateTotalPrice();
+
+    
+if (category.length === 0) {
+    
+    return (
+        <div>
+             <Announcement />
+            <Navbar /><br/><br/><br/><br/><br/><br/><br/><br/>
+            <h1 style={{ textAlign: "center" }}>Cart are Currently empty</h1><br />
+            <center> <Link to='/'><button style={{ width: "200px", height: "30px", backgroundColor: 'teal', color: "white", alignItems: "center" }}><KeyboardBackspaceIcon /> &nbsp;Continue to shopping</button></Link></center>
+        </div>) 
+}
     return (
         <>
             <Announcement />

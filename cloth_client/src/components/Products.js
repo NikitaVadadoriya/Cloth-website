@@ -193,12 +193,7 @@ const Product = () => {
   return (
     <>
       <div id="sidebar" style={{ marginTop: "-40px" }}>
-
         <Button onClick={getAllProduct} variant='contained' color='info'>All Products</Button>
-
-        <input type='search' style={{ marginTop: "20px", height: "30px" }}
-          onChange={(e) => handleFilter(e)}
-          placeholder='Search Here...' />
 
         <h3>SUB CATEGORIES</h3>
         {
@@ -234,7 +229,7 @@ const Product = () => {
                     checked={selectedColors.includes(color)}
                     onChange={handleColorChange}
                   />
-                  {color}
+                  &nbsp;   &nbsp; <h8 style={{ backgroundColor: color, color: color, fontSize: "18px", borderRadius: "50%", border: '1px solid black' }}>------</h8>
                 </label>
               </div>
             )) : null}
@@ -251,14 +246,15 @@ const Product = () => {
                     name='sizes'
                     checked={selectedSizes.includes(size)}
                     onChange={handleSizeChange}
+
                   />
                   {size}
                 </label>
               </div>
             )) : null}
         <button className='btn btn-success' onClick={handleFilterSubmit} style={{ width: '100px', height: '30px' }}> Filter </button>
-        <h3>PRICE RANGE</h3>
 
+        <h3>PRICE RANGE</h3>
         <Slider
           value={[minPrice, maxPrice]}
           min={0}
@@ -271,7 +267,14 @@ const Product = () => {
           aria-labelledby="price-range-slider"
         />
       </div>
-      <section className='main-card--product-cointainer' style={{ marginTop: "-700px", marginLeft: "270px", gridTemplateColumns: "repeat(3, minmax(200px, 500px))",height:'1200px' }}>
+
+      <div>
+        <input type='search' style={{ float: "right", marginTop: "-750px", marginRight: '70px', height: "30px" }}
+          onChange={(e) => handleFilter(e)}
+          placeholder='Search Here...' /><br />
+        <button style={{ float: "right", marginTop: "-768px", marginRight: '20px', height: "30px", width: "50px", backgroundColor: "teal", color: "white" }}>search</button>
+      </div><br />
+      <section className='main-card--product-cointainer' style={{ marginTop: "-700px", marginLeft: "270px", gridTemplateColumns: "repeat(3, minmax(200px, 500px))", height: '1200px' }}>
         {
           products.map((curEle) => {
             return (
@@ -298,9 +301,7 @@ const Product = () => {
             )
           })
         }
-       
       </section >
-    
 
     </>
   )

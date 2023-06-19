@@ -75,10 +75,23 @@ const Navbar = () => {
   }, [])
 
   const getAllCount = async (req, res) => {
-    const data = await axios.get(`http://localhost:4000/api/cart/getallcount`)
+    try {
+    const token = localStorage.getItem('token');
+
+    const data = await axios.get(`http://localhost:4000/api/cart/getallcount`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the authentication token in the request headers
+      }
+    })
       .then((res) => {
-        setCount(res.data.data)
+        setCount(res.data.count)
+      console.log("cart",res.data)
+        // const count = cartData.length;
       })
+    } catch (error) {
+      console.error('Error fetching cart data', error);
+    }
+
   }
 
   useEffect(() => {
@@ -116,7 +129,7 @@ const Navbar = () => {
           <MenuItem>
 
             <Link to='/usercart'>
-              <Badge color="primary" badgeContent={count.count}  >
+              <Badge color="primary" badgeContent={count.length}  >
                 <ShoppingCartOutlined size="large" color="primary" />
               </Badge>
             </Link>

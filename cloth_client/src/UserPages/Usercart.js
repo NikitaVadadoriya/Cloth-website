@@ -20,6 +20,9 @@ const CategoryItem = ({ item }) => {
   useEffect(() => {
     getProfile();
   },[])
+  useEffect(() => {
+    getAllProduct()
+  },[user])
   
   const getProfile = async () => {
     const data = axios.get(`http://localhost:4000/api/user/profile`,
@@ -34,7 +37,7 @@ const CategoryItem = ({ item }) => {
          console.log(res.data.data.user.id)
       })
   }
-  useEffect(()=>{
+ 
     const getAllProduct = async (req, res) => {
       try {
         const data = axios.get(`http://localhost:4000/api/cart/all/${user}`)
@@ -46,9 +49,6 @@ const CategoryItem = ({ item }) => {
         console.error(error);
       }
     }
-    getAllProduct()
-  },[user])
-  
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -84,8 +84,8 @@ const CategoryItem = ({ item }) => {
     const answer = window.confirm('are you sure delete task')
     if (answer == false) { } else {
       const deleteData = await axios.delete(`http://localhost:4000/api/cart/${id}`)
-      .then((res) => {
-        // getAllProduct( );
+      .then(() => {
+         getAllProduct( );
       })
       console.log(deleteData);
       setMess(deleteData)

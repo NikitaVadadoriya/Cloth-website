@@ -28,8 +28,8 @@ const Home = () => {
       <br /> <br />
       <br /> <br />
       <br />
-      <h1 style={{ textAlign: "center", marginTop: '-100px' }}>All newest Product</h1>
-      <hr style={{ width: "310px", marginLeft: "480px", height: "4px", backgroundColor: "black" }} />
+      <h1 style={{ textAlign: "center", marginTop:'-100px',fontFamily:"italic" }}>All newest Product</h1>
+      <hr style={{ width: "310px", marginLeft: "440px", height: "2px", backgroundColor: "black" }} />
       <br /> <br />
       <br /> <br />
       <Products />

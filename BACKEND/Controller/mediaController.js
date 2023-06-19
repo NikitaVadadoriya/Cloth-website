@@ -1,6 +1,7 @@
 const Media = require('../Modals/MediaModal');
 const { Sequelize, where } = require('sequelize');
 
+//ADD IMAGES 
 const addImages = async (req, res) => {
     try {
         const pid=req.body.pid
@@ -16,6 +17,7 @@ const addImages = async (req, res) => {
     }
 }
 
+//GET ALL IMAGES 
 const getAllImage =async(req,res)=>{
     const id = req.query.id ? req.query.id : req.params.id;
     try {
